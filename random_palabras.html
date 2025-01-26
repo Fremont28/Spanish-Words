@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Spanish Word Of The Day</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #word {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Spanish Word Generator</h1>
+  <div id="word">Press the button to see a word</div>
+  <button onclick="generateWord()">Get a Random Word</button>
+
+  <script>
+    const spanishWords = 
+    [
+    "adiós: goodbye", "amor: love", "comida: food", "agua: water", "cielo: sky", 
+"libro: book", "familia: family", "amistad: friendship", "sol: sun", "luna: moon", 
+"estrella: star", "casa: house", "puerta: door", "ventana: window", "árbol: tree", 
+"flor: flower", "perro: dog", "gato: cat", "pájaro: bird", "caballo: horse", 
+"camino: path", "ciudad: city", "pueblo: town", "playa: beach", "montaña: mountain", 
+"bosque: forest", "mar: sea", "río: river", "coche: car", "tren: train", 
+"avión: airplane", "escuela: school", "profesor: teacher", "estudiante: student", 
+"juego: game", "música: music", "canción: song", "baile: dance", "arte: art", 
+"pintura: painting", "historia: history", "trabajo: work", "dinero: money", 
+"ropa: clothes", "zapatos: shoes", "manzana: apple", "naranja: orange", 
+"pan: bread", "queso: cheese", "leche: milk", "café: coffee", "amigo: friend", 
+"hermano: brother", "hermana: sister", "abuelo: grandfather", "abuela: grandmother", 
+"padre: father", "madre: mother", "hijo: son", "hija: daughter", "niño: boy", 
+"niña: girl", "maestro: master", "película: movie", "verdura: vegetable", 
+"carne: meat", "pescado: fish", "dulce: candy", "miel: honey", "espejo: mirror", 
+"mesa: table", "silla: chair", "computadora: computer", "teléfono: phone", 
+"jardín: garden", "reloj: clock", "papel: paper", "bolígrafo: pen", "playa: beach",
+"puente: bridge", "montaña: mountain", "desierto: desert", "ciudad: city", "pueblo: village",
+"mercado: market", "tienda: shop", "hospital: hospital", "iglesia: church", "oficina: office",
+"profesor: teacher", "científico: scientist", "ingeniero: engineer", "médico: doctor", "actor: actor",
+"canción: song", "guitarra: guitar", "pintura: painting", "fotografía: photography", "baile: dance",
+"película: movie", "teatro: theater", "poema: poem", "novela: novel", "historia: history",
+"computadora: computer", "teclado: keyboard", "ratón: mouse", "pantalla: screen", "internet: internet",
+"correo: email", "teléfono: telephone", "mensaje: message", "foto: photo", "red: network",
+"carro: car", "bicicleta: bicycle", "avión: airplane", "tren: train", "barco: ship",
+"autobús: bus", "moto: motorcycle", "camión: truck", "cohete: rocket", "silla: chair",
+"mesa: table", "puerta: door", "ventana: window", "cama: bed", "armario: closet",
+"lámpara: lamp", "alfombra: rug", "espejo: mirror", "televisión: television", "radio: radio",
+"sol: sun", "luna: moon", "estrella: star", "planeta: planet", "cielo: sky",
+"mar: sea", "océano: ocean", "río: river", "lago: lake", "montaña: mountain",
+"árbol: tree", "flor: flower", "hoja: leaf", "raíz: root", "rama: branch",
+"perro: dog", "gato: cat", "pez: fish", "ave: bird", "tigre: tiger",
+"león: lion", "oso: bear", "elefante: elephant", "caballo: horse", "vaca: cow",
+"pan: bread", "queso: cheese", "leche: milk", "carne: meat", "pollo: chicken",
+"pescado: fish", "verdura: vegetable", "fruta: fruit", "arroz: rice", "pasta: pasta",
+"manzana: apple", "naranja: orange", "plátano: banana", "pera: pear", "uva: grape",
+"café: coffee", "té: tea", "agua: water", "jugo: juice", "vino: wine",
+"trabajo: work", "dinero: money", "banco: bank", "cheque: check", "tarjeta: card",
+"pasaporte: passport", "avión: airplane", "maleta: suitcase", "boleto: ticket", "hotel: hotel",
+"ciudad: city", "turista: tourist", "mapa: map", "guía: guide", "restaurante: restaurant",
+"plato: plate", "tenedor: fork", "cuchara: spoon", "cuchillo: knife", "taza: cup",
+"carta: menu", "cuenta: bill", "propina: tip", "cena: dinner", "almuerzo: lunch",
+"comida: meal", "desayuno: breakfast", "postre: dessert", "helado: ice cream", "pastel: cake",
+"chocolate: chocolate", "caramelo: candy", "dulce: sweet", "galleta: cookie", "panadería: bakery",
+"carnicería: butcher", "pescadería: fish shop", "mercado: market", "tienda: store", "supermercado: supermarket",
+"zapato: shoe", "camisa: shirt", "pantalón: pants", "falda: skirt", "vestido: dress",
+"sombrero: hat", "abrigo: coat", "chaqueta: jacket", "guante: glove", "bufanda: scarf",
+"calcetín: sock", "reloj: watch", "collar: necklace", "anillo: ring", "gafas: glasses",
+"padre: father", "madre: mother", "hijo: son", "hija: daughter", "hermano: brother",
+"hermana: sister", "abuelo: grandfather", "abuela: grandmother", "nieto: grandson", "nieta: granddaughter",
+"tío: uncle", "tía: aunt", "primo: cousin (male)", "prima: cousin (female)", "amigo: friend",
+"vecino: neighbor", "niño: child", "niña: girl", "hombre: man", "mujer: woman",
+"familia: family", "amigo: friend", "enemigo: enemy", "conocido: acquaintance", "jefe: boss",
+"empleado: employee", "cliente: client", "vecino: neighbor", "profesor: teacher", "estudiante: student"
+
+
+] ;
+
+
+    function generateWord() {
+      const randomIndex = Math.floor(Math.random() * spanishWords.length);
+      const randomWord = spanishWords[randomIndex];
+      document.getElementById("word").textContent = randomWord;
+    }
+  </script>
+</body>
+</html>
+
+
+<!--ADS*****************--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Ad Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #ad-container {
+      margin: 20px auto;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      max-width: 400px;
+      background-color: #f9f9f9;
+    }
+    #ad-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    #ad-container a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: rgb(245, 140, 48);
+      font-weight: bold;
+    }
+    #word {
+      font-size: 24px;
+      color: black;
+      transition: all 0.3s ease; /* Smooth transition for changes */
+    }
+
+  </style>
+</head>
+<body>
+  <h1></h1>
+  <div id="ad-container">
+    <div id="ad-content"></div>
+  </div>
+
+  <script>
+    // Array of ads (each ad can be text, image, or link-based)
+    const ads = [
+      { type: "image", src: "/Users/johnmccool/Documents/1080pic.jpg", alt: "Visit Barbados", link: "https://www.visitbarbados.org" },
+      { type: "image", src: "/Users/johnmccool/Documents/1080pic.jpg", alt: "Visit XXX ", link: "https://www.visitcostarica.com" },
+      { type: "image", src: "/Users/johnmccool/Desktop/Caribe.png", alt: "Caribbean Series", link: "https://www.mlb.com/news/2025-caribbean-series-mlb-network" },
+
+    ];
+
+    // Function to display a random ad
+    function displayRandomAd() {
+      const adContainer = document.getElementById("ad-content");
+      const randomAd = ads[Math.floor(Math.random() * ads.length)];
+
+      if (randomAd.type === "image") {
+        adContainer.innerHTML = `
+          <a href="${randomAd.link}" target="_blank">
+            <img src="${randomAd.src}" alt="${randomAd.alt}">
+          </a>
+        `;
+      } else if (randomAd.type === "text") {
+        adContainer.innerHTML = `
+          <a href="${randomAd.link}" target="_blank">${randomAd.content}</a>
+        `;
+      }
+    }
+
+    // Call the function to display an ad
+    displayRandomAd();
+  </script>
+</body>
+</html>
+
+
+<!--google adsense-->
+<!-- ****************************************************--> 
+<!-- pop-up email list?--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Subscription Pop-Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Overlay for the pop-up */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 10;
+    }
+
+    /* Pop-up container */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      text-align: center;
+      z-index: 11;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    .popup input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .popup button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background-color: #0056b3;
+    }
+
+    .popup .close-btn {
+      background-color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <p>Subscribe to our email list for updates and special offers.</p>
+
+  <!-- Overlay and Pop-up -->
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <h2>Join Our Email List!</h2>
+      <p>Subscribe to stay updated with our latest news.</p>
+      <input type="email" id="email" placeholder="Enter your email">
+      <button onclick="submitEmail()">Subscribe</button>
+      <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Show the pop-up after 3 seconds
+    setTimeout(() => {
+      document.getElementById('overlay').style.display = 'block';
+    }, 3000);
+
+    // Function to close the pop-up
+    function closePopup() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    // Function to handle email submission
+    function submitEmail() {
+      const email = document.getElementById('email').value;
+      if (email) {
+        alert(`Thank you for subscribing!, ${email}!`);
+        closePopup();
+      } else {
+        alert('Please enter a valid email address.');
+      }
+    }
+  </script>
+</body>
+</html>
+
